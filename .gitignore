@@ -1,0 +1,7 @@
+.DS_Store
+npm-debug.log
+coverage
+node_modules
+
+.nyc_output
+coverage.lcov

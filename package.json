@@ -1,0 +1,75 @@
+{
+  "name": "webpack-nano",
+  "version": "0.1.0",
+  "description": "A teensy, squeaky 🐤 clean Webpack CLI",
+  "license": "MPL-2.0",
+  "repository": "shellscape/webpack-nano",
+  "author": "shellscape",
+  "homepage": "https://github.com/shellscape/webpack-nano",
+  "bugs": "https://github.com/shellscape/webpack-nano/issues",
+  "bin": "bin/wp",
+  "engines": {
+    "node": ">= 10.11.0"
+  },
+  "scripts": {
+    "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
+    "ci:lint": "npm run lint && npm run security",
+    "ci:lint:commits": "commitlint --from=${CIRCLE_BRANCH} --to=${CIRCLE_SHA1}",
+    "commitlint": "commitlint",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "lint": "eslint --fix --cache lib test",
+    "lint-staged": "lint-staged",
+    "security": "npm audit"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "webpack": "^4.20.2"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "import-local": "^2.0.0",
+    "yargs-parser": "^11.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.1.2",
+    "@commitlint/config-conventional": "^7.1.2",
+    "eslint": "^5.6.1",
+    "eslint-config-shellscape": "^2.0.2",
+    "lint-staged": "^7.3.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.14.3",
+    "standard-version": "^4.4.0",
+    "webpack": "^4.20.2"
+  },
+  "keywords": [
+    "cli",
+    "cmd",
+    "command",
+    "light",
+    "lightweight",
+    "nano",
+    "small",
+    "teensy",
+    "webpack"
+  ],
+  "pre-commit": "lint-staged",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "nyc": {
+    "include": [
+      "lib/*.js"
+    ],
+    "exclude": [
+      "lib/client*.js",
+      "test/"
+    ]
+  }
+}
