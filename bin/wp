@@ -78,18 +78,37 @@ webpack      v${webpack.version}
     return;
   }
 
-  const configName = typeof argv.config !== 'string' ? Object.keys(argv.config)[0] : null;
-  const configPath = argv.config[configName] || argv.config;
-  let configExport = require(path.resolve(configPath)); // eslint-disable-line global-require, import/no-dynamic-require
-  const configType = typeof configExport;
+  let compiler;
+  let config = {};
+  let watchConfig;
 
-  if (configName) {
-    configExport = configExport[configName];
+  // let's not process any config if the user hasn't specified any
+  if (argv.config) {
+    const configName = typeof argv.config !== 'string' ? Object.keys(argv.config)[0] : null;
+    // e.g. --config.batman webpack.config.js
+    const configPath = argv.config[configName] || argv.config;
+    let configExport = require(path.resolve(configPath)); // eslint-disable-line global-require, import/no-dynamic-require
+    const configType = typeof configExport;
+
+    if (configName) {
+      configExport = configExport.find((c) => c.name === configName);
+
+      if (!configExport) {
+        throw new RangeError(`A config with name '${configName}' was not found in ${configPath}`);
+      }
+    }
+
+    config = await configTypes[configType](configExport, argv);
+    watchConfig = [].concat(config).find((c) => !!c.watch);
   }
 
-  const config = await configTypes[configType](configExport, argv);
-  const compiler = webpack(config);
-  const watchConfig = [].concat(config).find((c) => !!c.watch);
+  try {
+    compiler = webpack(config);
+  } catch (err) {
+    process.exitCode = 1;
+    throw err;
+  }
+
   const done = (fatal, stats) => {
     const hasErrors = stats && stats.hasErrors();
 
@@ -101,9 +120,10 @@ webpack      v${webpack.version}
     }
 
     const defaultStatsOptions = { colors: chalk.supportsColor, exclude: ['node_modules'] };
-    const { options } = []
-      .concat(compiler.compilers || compiler)
-      .reduce((a, c) => c.options.stats && c.options.stats);
+    const { options = {} } =
+      []
+        .concat(compiler.compilers || compiler)
+        .reduce((a, c) => c.options.stats && c.options.stats) || {};
 
     const result = stats.toString(options.stats == null ? defaultStatsOptions : options.stats);
 
