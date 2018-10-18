@@ -17,17 +17,6 @@ A teensy, squeaky 🐤 clean Webpack CLI
 
 `webpack-nano` operates on the assumption and premise that all options for configuring a webpack build are set via a [config file](https://webpack.js.org/configuration/). It offers minimal command line options for modifying a build.
 
-## Requirements
-
-`webpack-nano` is an evergreen module. 🌲 This module requires Node v10.11.0+.
-
-## Benefits
-
-- Holy bananas it's small
-- It does one thing: tells webpack to build a config
-- OK, so two things: can also [watch for changes](https://webpack.js.org/configuration/watch/) in build files
-- Doesn't hit you over the head with an avalanche of flags and options
-
 ## Install
 
 Using npm:
@@ -36,12 +25,26 @@ Using npm:
 npm install webpack-nano --save-dev
 ```
 
+<a href="https://www.patreon.com/shellscape">
+  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
+</a>
+
+## Requirements
+
+`webpack-nano` is an evergreen module. 🌲 This module requires Node v10.11.0+.
+
+## Benefits
+
+- Holy bananas 🍌 it's itsy bitsy
+- It does one thing: tells webpack to build a config
+- OK, so two things: can also [watch for changes](https://webpack.js.org/configuration/watch/) in build files
+- Doesn't hit you over the head with an avalanche of flags and options
+- ~90% smaller than webpack-cli and webpack-command
+
 ## Usage
 
 ```console
 $ npx wp --help
-
-  A teensy, squeaky 🐤 clean Webpack CLI
 
   Usage
     $ wp [...options]
