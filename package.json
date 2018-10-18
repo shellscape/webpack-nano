@@ -18,7 +18,7 @@
     "ci:test": "npm run test -- --verbose",
     "commitlint": "commitlint",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "lint": "eslint --fix --cache lib test",
+    "lint": "eslint --fix --cache bin/* test",
     "lint-staged": "lint-staged",
     "security": "npm audit",
     "test": "ava"
