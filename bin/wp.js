@@ -78,7 +78,6 @@ webpack      v${webpack.version}
     return;
   }
 
-  let compiler;
   let config = {};
   let watchConfig;
 
@@ -91,6 +90,12 @@ webpack      v${webpack.version}
     const configType = typeof configExport;
 
     if (configName) {
+      if (!Array.isArray(configExport)) {
+        throw new TypeError(
+          `A config with name was specified, but the config ${configPath} does not export an Array.`
+        );
+      }
+
       configExport = configExport.find((c) => c.name === configName);
 
       if (!configExport) {
@@ -102,17 +107,11 @@ webpack      v${webpack.version}
     watchConfig = [].concat(config).find((c) => !!c.watch);
   }
 
-  try {
-    compiler = webpack(config);
-  } catch (err) {
-    process.exitCode = 1;
-    throw err;
-  }
-
+  const compiler = webpack(config);
   const done = (fatal, stats) => {
     const hasErrors = stats && stats.hasErrors();
 
-    process.exitCode = Number(fatal || (hasErrors && !watchConfig));
+    process.exitCode = Number(!!fatal || (hasErrors && !watchConfig));
 
     if (fatal) {
       log.error(fatal);
@@ -138,6 +137,11 @@ webpack      v${webpack.version}
     compiler.run(done);
   }
 };
+
+process.on('unhandledRejection', (err) => {
+  stderr(err.stack);
+  process.exitCode = 1;
+});
 
 // eslint-disable-next-line no-unused-expressions
 importLocal(__filename) || doeet();
