@@ -7,15 +7,15 @@
 [size]: https://packagephobia.now.sh/badge?p=webpack-nano
 [size-url]: https://packagephobia.now.sh/result?p=webpack-nano
 
-[![tests][tests]][tests-url]
-[![cover][cover]][cover-url]
-[![size][size]][size-url]
+<div align="center">
+	<img width="256" src="assets/nano.svg" alt="webpack-nano"><br/><br/>
+</div>
 
-# webpack-nano
+# webpack-nano [![tests][tests]][tests-url] [![cover][cover]][cover-url] [![size][size]][size-url]
 
 A teensy, squeaky 🐤 clean Webpack CLI
 
-`webpack-nano` operates on the assumption and premise that all options for configuring a webpack build are set via a [config file](https://webpack.js.org/configuration/). It offers minimal command line options for modifying a build.
+`webpack-nano` operates on the premise that all options for configuring a webpack build are set via a [config file](https://webpack.js.org/configuration/).
 
 ## Install
 
@@ -36,9 +36,9 @@ npm install webpack-nano --save-dev
 ## Benefits
 
 - Holy bananas 🍌 it's itsy bitsy
-- It does one thing: tells webpack to build a config
-- OK, so two things: can also [watch for changes](https://webpack.js.org/configuration/watch/) in build files
 - Doesn't hit you over the head with an avalanche of flags and options
+- It does one thing: tells webpack to start a build
+- And can tell webpack to [watch for changes](https://webpack.js.org/configuration/watch/) in build files (So that's two things)
 - ~90% smaller than webpack-cli and webpack-command
 
 ## Usage
