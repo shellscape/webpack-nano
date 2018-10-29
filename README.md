@@ -8,7 +8,7 @@
 [size-url]: https://packagephobia.now.sh/result?p=webpack-nano
 
 <div align="center">
-	<img width="256" src="assets/nano.svg" alt="webpack-nano"><br/><br/>
+	<img width="256" src="https://raw.githubusercontent.com/shellscape/webpack-nano/master/assets/nano.svg?sanitize=true" alt="webpack-nano"><br/><br/>
 </div>
 
 # webpack-nano [![tests][tests]][tests-url] [![cover][cover]][cover-url] [![size][size]][size-url]
