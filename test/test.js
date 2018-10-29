@@ -105,5 +105,5 @@ test('--silent, error', async (t) => {
 
 test('--version', async (t) => {
   const { stderr } = await run('--version');
-  t.snapshot(stderr);
+  t.regex(stderr, /v\d{1,2}\.\d{1,2}\.\d{1,2}/i);
 });
