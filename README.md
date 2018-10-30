@@ -38,7 +38,6 @@ npm install webpack-nano --save-dev
 - Holy bananas 🍌 it's itsy bitsy
 - Doesn't hit you over the head with an avalanche of flags and options
 - It does one thing: tells webpack to start a build
-- And can tell webpack to [watch for changes](https://webpack.js.org/configuration/watch/) in build files (So that's two things)
 - ~90% smaller than webpack-cli and webpack-command
 
 ## Usage
