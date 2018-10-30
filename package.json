@@ -7,7 +7,9 @@
   "author": "shellscape",
   "homepage": "https://github.com/shellscape/webpack-nano",
   "bugs": "https://github.com/shellscape/webpack-nano/issues",
-  "bin": "bin/wp.js",
+  "bin": {
+    "wp": "bin/wp.js"
+  },
   "engines": {
     "node": ">= 10.11.0"
   },
