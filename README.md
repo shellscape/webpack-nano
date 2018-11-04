@@ -37,6 +37,7 @@ npm install webpack-nano --save-dev
 
 - Holy bananas 🍌 it's itsy bitsy
 - Doesn't hit you over the head with an avalanche of flags and options
+- Allows any number of user-defined flags
 - It does one thing: tells webpack to start a build
 - ~90% smaller than webpack-cli and webpack-command
 
@@ -61,3 +62,32 @@ $ npx wp --help
     $ wp --config webpack.config.js
     $ wp --config.serve webpack.config.js
 ```
+
+## Custom Flags
+
+With `webpack-cli` users are limited as to the flags they can use on with the `$ webpack` binary, and are instructed to use the `--env` flag for custom data. Well that's just 🍌🍌. With `webpack-nano` users can specify an unlimited number of custom flags, _without restriction_.
+
+Say you have a bundle which can be built to use different asset locations from cloud data sources, like Amazon S3 or Google Cloud Storage. And in this scenario you prefer to specify that location using a command-line flag. If you were using `webpack-cli`, you'd have to use the `--env.source` flag (or you'd get a big 'ol error) and use a function for your `webpack.config.js` export. Using `webpack-nano`:
+
+```console
+$ wp --config webpack.config.js --source s3
+```
+
+```js
+// webpack.config.js
+const argv = require('webpack-nano/argv');
+
+const { source } = argv;
+
+module.exports = {
+  ...
+}
+```
+
+✨ Magic. The `webpack-nano/argv` export provides quick and easy access to parsed command-line arguments, allowing the user to define the CLI experience as they want to.
+
+## Meta
+
+[CONTRIBUTING](./.github/CONTRIBUTING.md)
+
+[LICENSE (Mozilla Public License)](./LICENSE)

@@ -107,3 +107,7 @@ test('--version', async (t) => {
   const { stderr } = await run('--version');
   t.regex(stderr, /v\d{1,2}\.\d{1,2}\.\d{1,2}/i);
 });
+
+test('argv export', (t) => {
+  t.snapshot(require('../argv')); // eslint-disable-line global-require
+});
