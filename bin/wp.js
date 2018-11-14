@@ -10,6 +10,7 @@
   The above copyright notice and this permission notice shall be
   included in all copies or substantial portions of this Source Code Form.
 */
+const { existsSync } = require('fs');
 const path = require('path');
 
 const chalk = require('chalk');
@@ -25,6 +26,7 @@ const configTypes = {
   function: (c, argv) => Promise.resolve(c(argv.env || {}, argv)),
   object: (c) => Promise.resolve(c)
 };
+const defaultConfigPath = path.resolve(process.cwd(), 'webpack.config.js');
 
 const help = chalk`
   ${pkg.description}
@@ -80,6 +82,10 @@ webpack      v${webpack.version}
 
   let config = {};
   let watchConfig;
+
+  if (!argv.config && existsSync(defaultConfigPath)) {
+    argv.config = defaultConfigPath;
+  }
 
   // let's not process any config if the user hasn't specified any
   if (argv.config) {

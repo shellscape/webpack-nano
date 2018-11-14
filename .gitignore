@@ -6,6 +6,6 @@ node_modules
 .nyc_output
 coverage.lcov
 
-test/fixtures/dist
+test/fixtures/**/dist
 
 .eslintcache

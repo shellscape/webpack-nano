@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const { join, resolve } = require('path');
 
 const test = require('ava');
 const execa = require('execa');
@@ -8,6 +8,11 @@ const bin = resolve(__dirname, '../bin/wp.js');
 const cwd = resolve(__dirname, './fixtures');
 
 const run = (...args) => execa('node', [bin].concat(args), { cwd });
+
+test('no config', async (t) => {
+  const { stderr } = await run();
+  t.truthy(stderr.includes('⬡ webpack: Build Finished'));
+});
 
 test('--config', async (t) => {
   const { stderr } = await run('--config', 'webpack.config.js');
@@ -81,7 +86,7 @@ test('watch', (t) => {
 });
 
 test('zero config', async (t) => {
-  const { stderr } = await run();
+  const { stderr } = await execa('node', [bin], { cwd: join(cwd, '/zero') });
   t.truthy(stderr.includes('⬡ webpack: Build Finished'));
 });
 
