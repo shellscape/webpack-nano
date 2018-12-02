@@ -31,7 +31,7 @@ npm install webpack-nano --save-dev
 
 ## Requirements
 
-`webpack-nano` is an evergreen module. 🌲 This module requires Node v10.11.0+.
+`webpack-nano` is an evergreen module. 🌲 This module requires an [Active LTS](https://github.com/nodejs/Release) Node version (v8.0.0+ or v10.0.0+).
 
 ## Benefits
 
