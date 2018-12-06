@@ -124,13 +124,16 @@ webpack      v${webpack.version}
       return;
     }
 
-    const defaultStatsOptions = { colors: chalk.supportsColor, exclude: ['node_modules'] };
+    const statsDefaults = { colors: chalk.supportsColor.hasBasic, exclude: ['node_modules'] };
     const { options = {} } =
       []
         .concat(compiler.compilers || compiler)
         .reduce((a, c) => c.options.stats && c.options.stats) || {};
-
-    const result = stats.toString(options.stats == null ? defaultStatsOptions : options.stats);
+    const statsOptions =
+      !options.stats || typeof options.stats === 'object'
+        ? Object.assign({}, statsDefaults, options.stats)
+        : options.stats;
+    const result = stats.toString(statsOptions);
 
     log.info(result);
   };

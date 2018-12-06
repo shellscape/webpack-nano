@@ -86,6 +86,10 @@ module.exports = {
 
 ✨ Magic. The `webpack-nano/argv` export provides quick and easy access to parsed command-line arguments, allowing the user to define the CLI experience as they want to.
 
+## Build Stats
+
+This project attempts not to make assumptions about how a build should behave, and that includes webpack [`stats`](https://webpack.js.org/configuration/stats/). By default, `webpack-nano` will apply two `stats` options: `colors` (based on [`supports-color`](https://github.com/chalk/supports-color) and `exclude: ['node_modules']`). These can be quickly overridden by including these key/values in your stats configuration.
+
 ## Meta
 
 [CONTRIBUTING](./.github/CONTRIBUTING.md)
