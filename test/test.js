@@ -68,7 +68,7 @@ test('multi', async (t) => {
 
 test('stats', async (t) => {
   const { stderr } = await run('--config', 'stats.config.js');
-  t.is(stderr, '⬡ webpack: Build Finished\n⬡ webpack:    1 module');
+  t.snapshot(stderr);
 });
 
 test('watch', (t) => {

@@ -81,6 +81,7 @@ webpack      v${webpack.version}
   }
 
   let config = {};
+  let lastHash;
   let watchConfig;
 
   if (!argv.config && existsSync(defaultConfigPath)) {
@@ -124,6 +125,13 @@ webpack      v${webpack.version}
       return;
     }
 
+    if (lastHash === stats.hash) {
+      log.info(chalk`{dim ⁿᵃⁿᵒ} Duplicate build detected {dim (${lastHash})}\n`);
+      return;
+    }
+
+    lastHash = stats.hash;
+
     const statsDefaults = { colors: chalk.supportsColor.hasBasic, exclude: ['node_modules'] };
     const { options = {} } =
       []
@@ -135,7 +143,8 @@ webpack      v${webpack.version}
         : options.stats;
     const result = stats.toString(statsOptions);
 
-    log.info(result);
+    // indent the result slightly to visually set it apart from other output
+    log.info(result.split('\n').join('\n  '), '\n');
   };
 
   if (watchConfig) {
