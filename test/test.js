@@ -24,6 +24,12 @@ test('--config.name', async (t) => {
   t.truthy(stderr.includes('⬡ webpack: Build Finished'));
 });
 
+test('babel', async (t) => {
+  const { stderr } = await run('--config', 'webpack.config.babel.js');
+  t.truthy(stderr.includes('babel'));
+  t.truthy(stderr.includes('⬡ webpack: Build Finished'));
+});
+
 test('bad', async (t) => {
   try {
     await run('--config', 'bad.config.js');
@@ -54,6 +60,12 @@ test('bail', async (t) => {
   } catch (err) {
     t.truthy(err.message.includes('⬢ webpack: ModuleNotFoundError'));
   }
+});
+
+test('es6', async (t) => {
+  const { stderr } = await run('--config', 'webpack.config.es6');
+  t.truthy(stderr.includes('es6'));
+  t.truthy(stderr.includes('⬡ webpack: Build Finished'));
 });
 
 test('fn', async (t) => {

@@ -20,13 +20,14 @@
     "ci:test": "npm run test -- --verbose",
     "commitlint": "commitlint",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "lint": "eslint --fix --cache bin/* test argv.js",
+    "lint": "eslint --fix --cache bin/* lib test argv.js",
     "lint-staged": "lint-staged",
     "security": "npm audit",
     "test": "ava --timeout=2500"
   },
   "files": [
     "bin/",
+    "lib/",
     "argv.js",
     "README.md",
     "LICENSE"
@@ -37,9 +38,12 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "import-local": "^2.0.0",
+    "rechoir": "^0.6.2",
     "yargs-parser": "^11.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
     "@commitlint/cli": "^7.1.2",
     "@commitlint/config-conventional": "^7.1.2",
     "ava": "^1.0.0-rc.1",
