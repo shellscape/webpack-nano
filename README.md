@@ -86,6 +86,18 @@ module.exports = {
 
 ✨ Magic. The `webpack-nano/argv` export provides quick and easy access to parsed command-line arguments, allowing the user to define the CLI experience as they want to.
 
+## Special Configuration File Types
+
+Webpack configuration files can be written using a variety of module loaders. e.g. Babel or TypeScript. `webpack-nano` allows users to use file types like `webpack.config.babel.js`, `webpack.config.es6`, `webpack.config.mjs`, and `webpack.config.ts`. Users are responsible for installing a compatible module loader when using these special file types. The table below represents the supported file types and their compatible loaders:
+
+| Extension   | Compatible Loaders |
+| ------------| ------------------ |
+| `.babel.js` | `@babel/register`, `babel-register`, `babel-core/register`, `babel/register` |
+| `.babel.ts` | `@babel/register`  |
+| `.es6`      | `@babel/register`  |
+| `.mjs`      | `@babel/register`  |
+| `.ts`       | `ts-node/register`, `typescript-node/register`, `typescript-register`, `typescript-require` |
+
 ## Build Stats
 
 This project attempts not to make assumptions about how a build should behave, and that includes webpack [`stats`](https://webpack.js.org/configuration/stats/). By default, `webpack-nano` will apply two `stats` options: `colors` (based on [`supports-color`](https://github.com/chalk/supports-color) and `exclude: ['node_modules']`). These can be quickly overridden by including these key/values in your stats configuration.
