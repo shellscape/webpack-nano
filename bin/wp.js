@@ -10,23 +10,17 @@
   The above copyright notice and this permission notice shall be
   included in all copies or substantial portions of this Source Code Form.
 */
-const { existsSync } = require('fs');
-const path = require('path');
-
 const chalk = require('chalk');
 const importLocal = require('import-local');
 const parse = require('yargs-parser');
 const webpack = require('webpack');
 
 const pkg = require('../package.json');
+const { run } = require('../lib/compiler');
+const { loadConfig } = require('../lib/config');
 
 const { error: stderr } = console;
 const end = () => process.exit(0);
-const configTypes = {
-  function: (c, argv) => Promise.resolve(c(argv.env || {}, argv)),
-  object: (c) => Promise.resolve(c)
-};
-const defaultConfigPath = path.resolve(process.cwd(), 'webpack.config.js');
 
 const help = chalk`
   ${pkg.description}
@@ -80,80 +74,8 @@ webpack      v${webpack.version}
     return;
   }
 
-  let config = {};
-  let lastHash;
-  let watchConfig;
-
-  if (!argv.config && existsSync(defaultConfigPath)) {
-    argv.config = defaultConfigPath;
-  }
-
-  // let's not process any config if the user hasn't specified any
-  if (argv.config) {
-    const configName = typeof argv.config !== 'string' ? Object.keys(argv.config)[0] : null;
-    // e.g. --config.batman webpack.config.js
-    const configPath = argv.config[configName] || argv.config;
-    let configExport = require(path.resolve(configPath)); // eslint-disable-line global-require, import/no-dynamic-require
-    const configType = typeof configExport;
-
-    if (configName) {
-      if (!Array.isArray(configExport)) {
-        throw new TypeError(
-          `A config with name was specified, but the config ${configPath} does not export an Array.`
-        );
-      }
-
-      configExport = configExport.find((c) => c.name === configName);
-
-      if (!configExport) {
-        throw new RangeError(`A config with name '${configName}' was not found in ${configPath}`);
-      }
-    }
-
-    config = await configTypes[configType](configExport, argv);
-    watchConfig = [].concat(config).find((c) => !!c.watch);
-  }
-
-  const compiler = webpack(config);
-  const done = (fatal, stats) => {
-    const hasErrors = stats && stats.hasErrors();
-
-    process.exitCode = Number(!!fatal || (hasErrors && !watchConfig));
-
-    if (fatal) {
-      log.error(fatal);
-      return;
-    }
-
-    if (lastHash === stats.hash) {
-      log.info(chalk`{dim ⁿᵃⁿᵒ} Duplicate build detected {dim (${lastHash})}\n`);
-      return;
-    }
-
-    lastHash = stats.hash;
-
-    const statsDefaults = { colors: chalk.supportsColor.hasBasic, exclude: ['node_modules'] };
-    const { options = {} } =
-      []
-        .concat(compiler.compilers || compiler)
-        .reduce((a, c) => c.options.stats && c.options.stats) || {};
-    const statsOptions =
-      !options.stats || typeof options.stats === 'object'
-        ? Object.assign({}, statsDefaults, options.stats)
-        : options.stats;
-    const result = stats.toString(statsOptions);
-
-    // indent the result slightly to visually set it apart from other output
-    log.info(result.split('\n').join('\n  '), '\n');
-  };
-
-  if (watchConfig) {
-    log.info('Watching Files');
-    compiler.watch(watchConfig.watchOptions || {}, done);
-  } else {
-    compiler.hooks.done.tap('webpack-nano', () => log.info('Build Finished'));
-    compiler.run(done);
-  }
+  const config = await loadConfig(argv);
+  run(config, log);
 };
 
 process.on('unhandledRejection', (err) => {
