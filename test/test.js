@@ -30,6 +30,12 @@ test('babel', async (t) => {
   t.truthy(stderr.includes('⬡ webpack: Build Finished'));
 });
 
+test('babel default export', async (t) => {
+  const { stderr } = await run('--config', 'webpack.config-default.babel.js');
+  t.truthy(stderr.includes('babel-default'));
+  t.truthy(stderr.includes('⬡ webpack: Build Finished'));
+});
+
 test('bad', async (t) => {
   try {
     await run('--config', 'bad.config.js');
