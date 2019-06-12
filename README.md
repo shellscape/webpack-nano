@@ -11,7 +11,8 @@
 	<img width="256" src="https://raw.githubusercontent.com/shellscape/webpack-nano/master/assets/nano.svg?sanitize=true" alt="webpack-nano"><br/><br/>
 </div>
 
-# webpack-nano [![tests][tests]][tests-url] [![cover][cover]][cover-url] [![size][size]][size-url]
+# webpack-nano [![tests][tests]][tests-url] [![cover][cover]][cover-url] [![size][size]][size-url] [![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
+
 
 A teensy, squeaky 🐤 clean Webpack CLI
 
