@@ -36,6 +36,12 @@ test('babel default export', async (t) => {
   t.truthy(stderr.includes('⬡ webpack: Build Finished'));
 });
 
+test('esm default export', async (t) => {
+  const { stderr } = await run('--config', 'webpack.config-esm-default.js');
+  t.truthy(stderr.includes('esm-default'));
+  t.truthy(stderr.includes('⬡ webpack: Build Finished'));
+});
+
 test('bad', async (t) => {
   try {
     await run('--config', 'bad.config.js');
