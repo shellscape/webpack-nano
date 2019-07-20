@@ -49,6 +49,7 @@
     "ava": "^1.4.1",
     "eslint": "^5.6.1",
     "eslint-config-shellscape": "^2.0.2",
+    "esm": "^3.2.25",
     "execa": "^1.0.0",
     "lint-staged": "^8.1.0",
     "nyc": "^14.1.0",
