@@ -37,26 +37,26 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
-    "import-local": "^2.0.0",
+    "import-local": "^3.0.1",
     "rechoir": "^0.7.0",
     "yargs-parser": "^13.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.2.0",
     "@babel/register": "^7.0.0",
-    "@commitlint/cli": "^7.1.2",
-    "@commitlint/config-conventional": "^7.1.2",
-    "ava": "^1.4.1",
-    "eslint": "^5.6.1",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "ava": "^2.2.0",
+    "eslint": "^6.0.1",
     "eslint-config-shellscape": "^2.0.2",
     "esm": "^3.2.25",
-    "execa": "^1.0.0",
-    "lint-staged": "^8.1.0",
+    "execa": "^2.0.3",
+    "lint-staged": "^9.2.0",
     "nyc": "^14.1.0",
-    "p-defer": "^2.1.0",
+    "p-defer": "^3.0.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.14.3",
-    "standard-version": "^5.0.2",
+    "standard-version": "^6.0.1",
     "webpack": "^4.20.2"
   },
   "keywords": [
@@ -70,7 +70,12 @@
     "teensy",
     "webpack"
   ],
-  "pre-commit": "lint-staged",
+  "ava": {
+    "files": [
+      "!**/fixtures/**",
+      "!**/helpers/**"
+    ]
+  },
   "lint-staged": {
     "*.js": [
       "eslint --fix",
@@ -79,10 +84,12 @@
   },
   "nyc": {
     "include": [
-      "bin/wp.js"
+      "lib/*.js"
     ],
     "exclude": [
+      "lib/client*.js",
       "test/"
     ]
-  }
+  },
+  "pre-commit": "lint-staged"
 }
