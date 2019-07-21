@@ -52,7 +52,7 @@ test('bad', async (t) => {
   try {
     await run('--config', 'bad.config.js');
   } catch (err) {
-    t.truthy(err.message.includes('WebpackOptionsValidationError'));
+    t.truthy(err.stderr.includes('WebpackOptionsValidationError'));
   }
 });
 
@@ -60,7 +60,7 @@ test('bad --config.name', async (t) => {
   try {
     await run('--config.ye', 'multi.config.js');
   } catch (err) {
-    t.truthy(err.message.includes('RangeError'));
+    t.truthy(err.stderr.includes('RangeError'));
   }
 });
 
@@ -68,7 +68,7 @@ test('bad --config.name, non-Array', async (t) => {
   try {
     await run('--config.ye', 'webpack.config.js');
   } catch (err) {
-    t.truthy(err.message.includes('TypeError'));
+    t.truthy(err.stderr.includes('TypeError'));
   }
 });
 
@@ -76,7 +76,7 @@ test('bail', async (t) => {
   try {
     await run('--config', 'bail.config.js');
   } catch (err) {
-    t.truthy(err.message.includes('⬢ webpack: ModuleNotFoundError'));
+    t.truthy(err.stderr.includes('⬢ webpack: ModuleNotFoundError'));
   }
 });
 
@@ -107,14 +107,14 @@ test('watch', (t) => {
 
   setTimeout(async () => {
     proc.kill();
-    const { stderr } = await proc;
-    t.truthy(stderr.includes('⬡ webpack: Watching Files'));
+    const { all } = await proc;
+    t.truthy(all.includes('⬡ webpack: Watching Files'));
     defer.resolve();
   }, 2000);
 
   return defer.promise;
 });
-
+//
 test('zero config', async (t) => {
   const { stderr } = await execa('node', [bin], { cwd: join(cwd, '/zero') });
   t.truthy(stderr.includes('⬡ webpack: Build Finished'));
