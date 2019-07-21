@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
-    "import-local": "^3.0.1",
+    "import-local": "^2.0.0",
     "rechoir": "^0.7.0",
     "yargs-parser": "^13.0.0"
   },
