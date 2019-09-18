@@ -29,6 +29,7 @@
     "bin/",
     "lib/",
     "argv.js",
+    "argv.d.ts",
     "README.md",
     "LICENSE"
   ],
