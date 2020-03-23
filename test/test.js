@@ -101,20 +101,21 @@ test('stats', async (t) => {
   t.snapshot(stderr);
 });
 
-test('watch', (t) => {
+test.serial('watch', (t) => {
+  t.timeout(5000);
   const defer = deferred();
   const proc = run('--config', 'watch.config.js');
 
   setTimeout(async () => {
     proc.kill();
-    const { all } = await proc;
-    t.truthy(all.includes('⬡ webpack: Watching Files'));
+    const { stderr } = await proc;
+    t.truthy(stderr.includes('⬡ webpack: Watching Files'));
     defer.resolve();
   }, 2000);
 
   return defer.promise;
 });
-//
+
 test('zero config', async (t) => {
   const { stderr } = await execa('node', [bin], { cwd: join(cwd, '/zero') });
   t.truthy(stderr.includes('⬡ webpack: Build Finished'));

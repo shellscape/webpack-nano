@@ -23,7 +23,7 @@
     "lint": "eslint --fix --cache bin/* lib test argv.js",
     "lint-staged": "lint-staged",
     "security": "npm audit",
-    "test": "ava --timeout=2500"
+    "test": "ava"
   },
   "files": [
     "bin/",
@@ -37,27 +37,27 @@
     "webpack": "^4.20.2"
   },
   "dependencies": {
-    "chalk": "^2.4.1",
-    "import-local": "^2.0.0",
+    "chalk": "^3.0.0",
+    "import-local": "^3.0.2",
     "rechoir": "^0.7.0",
-    "yargs-parser": "^13.0.0"
+    "yargs-parser": "^18.1.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.2.0",
     "@babel/register": "^7.0.0",
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
-    "ava": "^2.2.0",
+    "ava": "^3.5.1",
     "eslint-config-shellscape": "^2.1.0",
     "esm": "^3.2.25",
-    "execa": "^2.0.3",
-    "lint-staged": "^9.2.0",
-    "nyc": "^14.1.0",
+    "execa": "^4.0.0",
+    "lint-staged": "^10.0.8",
+    "nyc": "^15.0.0",
     "p-defer": "^3.0.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.14.3",
-    "standard-version": "^6.0.1",
-    "webpack": "^4.20.2"
+    "prettier": "^2.0.1",
+    "standard-version": "^7.1.0",
+    "webpack": "^4.42.0"
   },
   "keywords": [
     "cli",
