@@ -14,9 +14,9 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-  node-v10-latest:
+  node-v12-latest:
     docker:
-      - image: rollupcabal/circleci-node-v10:latest
+      - image: rollupcabal/circleci-node-v12:latest
     steps:
       - checkout
       - restore_cache:
@@ -61,7 +61,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - node-v10-latest:
+      - node-v12-latest:
           requires:
             - analysis
           filters:
