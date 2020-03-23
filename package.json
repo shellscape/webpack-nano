@@ -1,6 +1,6 @@
 {
   "name": "webpack-nano",
-  "version": "0.8.1",
+  "version": "1.0.0",
   "description": "A teensy, squeaky 🐤 clean Webpack CLI",
   "license": "MPL-2.0",
   "repository": "shellscape/webpack-nano",
