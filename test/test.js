@@ -103,7 +103,13 @@ test('stats', async (t) => {
 
 test('json', async (t) => {
   const { stdout } = await run('--config', 'stats.config.js', '--json');
-  t.snapshot(stdout);
+  const stats = JSON.parse(stdout);
+
+  // Remove times since those are transient
+  delete stats.time;
+  delete stats.builtAt;
+
+  t.snapshot(stats);
 });
 
 test.serial('watch', (t) => {
