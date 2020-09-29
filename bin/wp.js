@@ -76,7 +76,7 @@ webpack      v${webpack.version}
   }
 
   const config = await loadConfig(argv);
-  run(config, log, argv.json);
+  run(config, log);
 };
 
 process.on('unhandledRejection', (err) => {
