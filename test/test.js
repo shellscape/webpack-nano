@@ -108,6 +108,9 @@ test('json', async (t) => {
   // Remove times since those are transient
   delete stats.time;
   delete stats.builtAt;
+  delete stats.outputPath;
+  delete stats.chunks;
+  delete stats.modules;
 
   t.snapshot(stats);
 });
