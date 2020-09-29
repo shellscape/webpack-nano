@@ -53,6 +53,7 @@ $ npx wp --help
   Options
     --config          A path to a webpack config file
     --config.{name}   A path to a webpack config file, and the config name to run
+    --json            Emit webpack stats as JSON
     --help            Displays this message
     --silent          Instruct the CLI to produce no console output
     --version         Displays webpack-nano and webpack versions

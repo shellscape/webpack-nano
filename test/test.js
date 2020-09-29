@@ -101,6 +101,11 @@ test('stats', async (t) => {
   t.snapshot(stderr);
 });
 
+test('json', async (t) => {
+  const { stdout } = await run('--config', 'stats.config.js', '--json');
+  t.snapshot(stdout);
+});
+
 test.serial('watch', (t) => {
   t.timeout(5000);
   const defer = deferred();
