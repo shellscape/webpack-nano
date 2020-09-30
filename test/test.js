@@ -101,6 +101,20 @@ test('stats', async (t) => {
   t.snapshot(stderr);
 });
 
+test('json', async (t) => {
+  const { stdout } = await run('--config', 'stats.config.js', '--json');
+  const stats = JSON.parse(stdout);
+
+  // Remove times since those are transient
+  delete stats.time;
+  delete stats.builtAt;
+  delete stats.outputPath;
+  delete stats.chunks;
+  delete stats.modules;
+
+  t.snapshot(stats);
+});
+
 test.serial('watch', (t) => {
   t.timeout(5000);
   const defer = deferred();

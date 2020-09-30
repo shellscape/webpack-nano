@@ -31,6 +31,7 @@ const help = chalk`
   {underline Options}
     --config          A path to a webpack config file
     --config.\{name\}   A path to a webpack config file, and the config name to run
+    --json            Emit bundle information as JSON
     --help            Displays this message
     --silent          Instruct the CLI to produce no console output
     --version         Displays webpack-nano and webpack versions
