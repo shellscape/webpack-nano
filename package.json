@@ -23,7 +23,10 @@
     "lint": "eslint --fix --cache bin/* lib test argv.js",
     "lint-staged": "lint-staged",
     "security": "npm audit",
-    "test": "ava"
+    "test": "npm run test:v4 && npm run test:v5 && npm run test:cleanup",
+    "test:cleanup": "npm install webpack@^4.42.0 --no-save",
+    "test:v4": "ava",
+    "test:v5": "npm install webpack@^5.0.0 --no-save && ava"
   },
   "files": [
     "bin/",
@@ -34,7 +37,7 @@
     "LICENSE"
   ],
   "peerDependencies": {
-    "webpack": "^4.20.2"
+    "webpack": ">=4.0.0"
   },
   "dependencies": {
     "chalk": "^4.1.0",

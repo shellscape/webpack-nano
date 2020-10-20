@@ -4,6 +4,8 @@ const test = require('ava');
 const execa = require('execa');
 const deferred = require('p-defer');
 
+const { isWebpack5 } = require('../lib/compiler');
+
 const bin = resolve(__dirname, '../bin/wp.js');
 const cwd = resolve(__dirname, './fixtures');
 
@@ -52,7 +54,8 @@ test('bad', async (t) => {
   try {
     await run('--config', 'bad.config.js');
   } catch (err) {
-    t.truthy(err.stderr.includes('WebpackOptionsValidationError'));
+    // Same subset for webpack 4 and 5
+    t.truthy(err.stderr.includes('ValidationError'));
   }
 });
 
@@ -98,12 +101,44 @@ test('multi', async (t) => {
 
 test('stats', async (t) => {
   const { stderr } = await run('--config', 'stats.config.js');
-  t.snapshot(stderr);
+
+  if (isWebpack5()) {
+    t.truthy(stderr.includes('webpack: 1 asset'));
+  } else {
+    // Webpack 4
+    t.snapshot(stderr);
+  }
 });
 
-test('json', async (t) => {
+test('json - webpack 4', async (t) => {
   const { stdout } = await run('--config', 'stats.config.js', '--json');
   const stats = JSON.parse(stdout);
+
+  if (isWebpack5()) {
+    t.truthy(true);
+
+    return;
+  }
+
+  // Remove times since those are transient
+  delete stats.time;
+  delete stats.builtAt;
+  delete stats.outputPath;
+  delete stats.chunks;
+  delete stats.modules;
+
+  t.snapshot(stats);
+});
+
+test('json - webpack 5', async (t) => {
+  const { stdout } = await run('--config', 'stats.config.js', '--json');
+  const stats = JSON.parse(stdout);
+
+  if (!isWebpack5()) {
+    t.truthy(true);
+
+    return;
+  }
 
   // Remove times since those are transient
   delete stats.time;
