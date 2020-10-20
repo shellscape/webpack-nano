@@ -52,7 +52,8 @@ test('bad', async (t) => {
   try {
     await run('--config', 'bad.config.js');
   } catch (err) {
-    t.truthy(err.stderr.includes('WebpackOptionsValidationError'));
+    // Same subset for webpack 4 and 5
+    t.truthy(err.stderr.includes('ValidationError'));
   }
 });
 
@@ -98,7 +99,9 @@ test('multi', async (t) => {
 
 test('stats', async (t) => {
   const { stderr } = await run('--config', 'stats.config.js');
-  t.snapshot(stderr);
+
+  // Same subset for webpack 4 and 5
+  t.truthy(stderr.includes('webpack'));
 });
 
 test('json', async (t) => {
@@ -111,6 +114,20 @@ test('json', async (t) => {
   delete stats.outputPath;
   delete stats.chunks;
   delete stats.modules;
+
+  // Remove properties that aren't common in webpack 4 and 5
+  delete stats.assets;
+  delete stats.assetsByChunkName;
+  delete stats.entrypoints;
+  delete stats.errorsCount;
+  delete stats.filteredAssets;
+  delete stats.filteredModules;
+  delete stats.hash;
+  delete stats.logging;
+  delete stats.namedChunkGroups;
+  delete stats.publicPath;
+  delete stats.version;
+  delete stats.warningsCount;
 
   t.snapshot(stats);
 });
