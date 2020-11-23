@@ -37,7 +37,7 @@
     "LICENSE"
   ],
   "peerDependencies": {
-    "webpack": ">=4.0.0"
+    "webpack": "^4.20.2"
   },
   "dependencies": {
     "chalk": "^4.1.0",
