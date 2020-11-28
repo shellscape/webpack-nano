@@ -140,12 +140,14 @@ test('json - webpack 5', async (t) => {
     return;
   }
 
-  // Remove times since those are transient
-  delete stats.time;
+  // remove dynamic key/value pairs
   delete stats.builtAt;
-  delete stats.outputPath;
   delete stats.chunks;
+  delete stats.hash;
   delete stats.modules;
+  delete stats.outputPath;
+  delete stats.time;
+  delete stats.version;
 
   t.snapshot(stats);
 });
