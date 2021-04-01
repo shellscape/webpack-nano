@@ -37,7 +37,7 @@
     "LICENSE"
   ],
   "peerDependencies": {
-    "webpack": ">=4.20.2"
+    "webpack": ">=4.46.0"
   },
   "dependencies": {
     "chalk": "^4.1.0",
@@ -59,7 +59,7 @@
     "p-defer": "^3.0.0",
     "pre-commit": "^1.2.2",
     "prettier": "^2.0.1",
-    "webpack": "^4.42.0"
+    "webpack": "^4.46.0"
   },
   "keywords": [
     "cli",
